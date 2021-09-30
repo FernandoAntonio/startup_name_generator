@@ -1,9 +1,9 @@
 import 'package:english_words/english_words.dart';
+import 'package:first_flutter_app/snackbars.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 
 class RandomWords extends StatefulWidget {
   @override
@@ -11,20 +11,20 @@ class RandomWords extends StatefulWidget {
 }
 
 class RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _saved = Set<WordPair>();
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  final List<WordPair> _suggestions = <WordPair>[];
+  final Set<WordPair> _saved = <WordPair>{};
+  final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      appBar: GradientAppBar(
+      appBar: NewGradientAppBar(
         gradient: LinearGradient(
           colors: [
-            Colors.green[800],
-            Colors.green[700],
-            Colors.green[600],
+            Colors.green[800]!,
+            Colors.green[700]!,
+            Colors.green[600]!,
           ],
         ),
         title: Text('Startup Name Generator'),
@@ -128,18 +128,7 @@ class RandomWordsState extends State<RandomWords> {
                 direction == DismissDirection.endToStart) {
               setState(() {
                 _saved.remove(wordPair);
-                Flushbar(
-                  title: "Name Dismissed",
-                  message: "\"${wordPair.asPascalCase}\"",
-                  icon: Icon(
-                    Icons.remove_circle,
-                    size: 25.0,
-                    color: Colors.red,
-                  ),
-                  duration: Duration(seconds: 2),
-                  leftBarIndicatorColor: Colors.red,
-                  backgroundColor: Colors.grey[900],
-                )..show(context);
+                showDismissedSnackbar(context, wordPair);
               });
             }
           },
@@ -156,17 +145,7 @@ class RandomWordsState extends State<RandomWords> {
       });
 
       void _deleteAllSaved() async {
-        Flushbar(
-          message: "All Saved Suggestions Deleted.",
-          icon: Icon(
-            Icons.remove_circle,
-            size: 25.0,
-            color: Colors.red,
-          ),
-          duration: Duration(seconds: 2),
-          leftBarIndicatorColor: Colors.red,
-          backgroundColor: Colors.grey[900],
-        )..show(context);
+        showDeletedSnackbar(context);
 
         await Future.delayed(
           Duration(seconds: 3),
@@ -176,12 +155,12 @@ class RandomWordsState extends State<RandomWords> {
       }
 
       return Scaffold(
-        appBar: GradientAppBar(
+        appBar: NewGradientAppBar(
           gradient: LinearGradient(
             colors: [
-              Colors.green[800],
-              Colors.green[700],
-              Colors.green[600],
+              Colors.green[800]!,
+              Colors.green[700]!,
+              Colors.green[600]!,
             ],
           ),
           title: Text('Saved Suggestions'),

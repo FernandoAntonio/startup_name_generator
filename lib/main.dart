@@ -1,4 +1,4 @@
-import 'package:first_flutter_app/random_words.dart';
+import 'package:first_flutter_app/random_words_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
